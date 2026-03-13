@@ -2,6 +2,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Shader.h"
+#define SDL_MAIN_HANDLED
+#include "SDL2/SDL.h" // Music to make myself feel good that it is a game not random vertices
+#include "SDL2/SDL_mixer.h"
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
@@ -22,7 +25,30 @@ int main()
         2,3,0
     };
 
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        std::cout << "Failed to initialize SDL2 audio: " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cout << "Failed to initialize SDL2_mixer: " << Mix_GetError() << std::endl;
+        return -1;
+    }
+    Mix_VolumeMusic(64);
+
+    Mix_Music* bgm = Mix_LoadMUS("../assets/music/d_runnin.ogg");
+    if (!bgm) {
+        std::cout << "Failed to load music: " << Mix_GetError() << std::endl;
+        return -1;
+    }
+
+    if (Mix_PlayMusic(bgm, -1) < 0) {
+        std::cout << "Failed to play music: " << Mix_GetError() << std::endl;
+        return -1;
+    }
+
     glfwInit();
+    
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -74,4 +100,10 @@ int main()
     }
 
     glfwTerminate();
+
+    Mix_FreeMusic(bgm);
+    Mix_CloseAudio();
+    SDL_Quit();
+
+    return 0;
 }

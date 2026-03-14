@@ -1,0 +1,8 @@
+<img width="406" height="172" alt="image" src="https://github.com/user-attachments/assets/4e4adfa5-0d0e-41c7-a83b-ffbbf6d81744" />Very simple DOOM engine called mydoom. This is not intended to be an actual fork of the DOOM Engine and it's a recreation I'm doing from scratch just for fun. 
+
+To build it, download everything and run the following command from the base directory: g++ src\main.cpp src\Renderer.cpp src\Shader.cpp src\Map.cpp src\gl.c `
+  -Iinclude `
+  -IC:\msys64\mingw64\include `
+  -LC:\msys64\mingw64\lib `
+  -lglfw3 -lSDL2 -lSDL2_mixer -lopengl32 -lgdi32 `
+  -o mydoom.exe

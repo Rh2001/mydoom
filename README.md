@@ -6,3 +6,6 @@ To build it, download everything and run the following command from the base dir
   -LC:\msys64\mingw64\lib `
   -lglfw3 -lSDL2 -lSDL2_mixer -lopengl32 -lgdi32 `
   -o mydoom.exe
+
+
+You need a C++ compiler, I used mingw64 which you can install and build from MSYS2: https://www.msys2.org/
